@@ -1,0 +1,15 @@
+Foram criadas diversas tabelas:
+
+- Alunos: Guarda as informações pessoais de cada aluno, bem como o diagnóstico do mesmo
+
+- Usuários: São aqueles que terão acesso ao programa, podendo ser o professor, pai e o profissional. O que vai diferenciar um do outro é o Email
+
+- Planilhas: Aqui eu irei colocar todas as informações referentes às "planilhas". Na verdade a planilha iria ser gerada a partir desses dados. Aqui é onde ficam os dados qualitativos.
+
+- Mensagens do fórum: Histórico do chat(posteriormente pode-se mudar o tipo de dados para não consummir tanto espaço)
+
+- Cursos Online: Links atualizados de cursos online, foi feito uma tabela para segmentar melhor.
+
+- Materiais didáticos: Livros ou algo do tipo, com o caminho do arquivo para ser armazenado. sobre guardar o arquivo propriaente dito pode ser uma issue futura.
+
+- Informações quantitativas: Dados que podem ser usados para análise posteriormente. Ele se relaciona com o aluno, o usuário que o colocou e com a planilha(ou seja, cada planilha pode ostrar varias informações quantitativas)
