@@ -1,0 +1,27 @@
+# Diretórios gerados pelo compilador Rust
+/target/
+
+# Diretórios gerados pelo Cargo para dependências
+**/Cargo.lock
+
+# Diretórios e arquivos relacionados ao ambiente de build local
+/.idea/
+/.vscode/
+/*.rs.bk
+.DS_Store
+
+# Arquivos de log
+*.log
+
+# Diretórios relacionados ao sistema operacional
+*.swp
+*.swo
+
+# Arquivos temporários ou de backup
+*.tmp
+*.bak
+*.old
+
+# Outros
+**/debug/
+**/release/
