@@ -1,1 +1,1 @@
-/home/davi/TEAConnect/teaconnect_server/target/debug/teaconnect_server: /home/davi/TEAConnect/teaconnect_server/src/connection.rs /home/davi/TEAConnect/teaconnect_server/src/lib.rs /home/davi/TEAConnect/teaconnect_server/src/main.rs
+/home/davi/TEAConnect/teaconnect_server/target/debug/teaconnect_server: /home/davi/TEAConnect/teaconnect_server/src/alunos.rs /home/davi/TEAConnect/teaconnect_server/src/connection.rs /home/davi/TEAConnect/teaconnect_server/src/lib.rs /home/davi/TEAConnect/teaconnect_server/src/main.rs
