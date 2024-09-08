@@ -1,27 +1,52 @@
-use teaconnect_server::alunos::*;
-use teaconnect_server::connection::*;
+use mysql::*;
+use std::error::Error;
+use teaconnect_server::usuarios::{create_usuario, delete_usuario, get_usuario, get_usuario_by_nome, update_usuario};
+use teaconnect_server::connection::{create_connection, get_opts, ConnectionType, Connection};
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let connection = create_connection(ConnectionType::Pool)?;
+fn main() -> Result<(), Box<dyn Error>> {
+    // Criar uma conexão com o banco de dados
+    let connection_type = ConnectionType::Pool;
+    let connection = create_connection(connection_type)?;
 
-    match connection {
-        Connection::Pool(pool) => {
-            // Cria um novo aluno
-            create_aluno(&pool, "João", "2000-01-01", "Diagnóstico A")?;
+    // Obter uma conexão para usar
+    let mut conn: PooledConn = match connection {
+        Connection::Pool(pool) => pool.get_conn()?,
+        Connection::Single(_) => {
+            // Se for uma conexão única, então não é possível criar um pool a partir dela.
+            return Err("Cannot create a pool from a single connection.".into());
+        },
+    };
 
-            // Lê e imprime todos os alunos
-            let alunos = read_alunos(&pool)?;
-            for aluno in alunos {
-                println!("{:?}", aluno);
+    // Criar um novo usuário
+    match create_usuario(&mut conn, "Ana Souza", "ana.souza@example.com", "professor") {
+        Ok(_) => println!("Usuário criado com sucesso."),
+        Err(err) => println!("Erro ao criar usuário: {}", err),
+    }
+
+    // Obter um usuário(aqui ele obtem pelo id). Caso ele tenha sido criado anteriormente, como é autoincrementado no BD, entao não é garantido que o id seja 1.
+    match get_usuario(&mut conn, 1) {//aqui o id é sempre 1
+        Ok(usuario) => println!("Usuário encontrado: {:?}", usuario),
+        Err(err) => println!("Erro ao obter usuário: {}", err),
+    }
+    
+    match get_usuario_by_nome(&mut conn, "Ana Souza") {
+        Ok(usuarios) => {
+            for usuario in usuarios {
+                println!("Usuário encontrado: {:?}", usuario);
             }
+        },
+        Err(err) => println!("Erro ao obter usuário: {}", err),
+    }
+    // Atualizar um usuário
+    match update_usuario(&mut conn, 1, "Ana Souza", "ana.souza@newemail.com", "professor") {
+        Ok(_) => println!("Usuário atualizado com sucesso."),
+        Err(err) => println!("Erro ao atualizar usuário: {}", err),
+    }
 
-            // Atualiza o aluno com ID 1
-            update_aluno(&pool, 1, "João Atualizado", "2000-01-01", "Diagnóstico Atualizado")?;
-
-            // Deleta o aluno com ID 1
-            delete_aluno(&pool, 1)?;
-        }
-        _ => println!("Conexão única não suportada para pool."),
+    // Deletar um usuário
+    match delete_usuario(&mut conn, 1) {
+        Ok(_) => println!("Usuário deletado com sucesso."),
+        Err(err) => println!("Erro ao deletar usuário: {}", err),
     }
 
     Ok(())
