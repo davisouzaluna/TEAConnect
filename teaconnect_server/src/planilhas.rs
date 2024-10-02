@@ -39,6 +39,20 @@ pub fn get_planilha(conn: &mut PooledConn, id: u32) -> Result<Planilha, Box<dyn 
     }
 }
 
+pub fn get_planilha_by_aluno(conn: &mut PooledConn, id_aluno: u32) -> Result<Vec<Planilha>, Box<dyn Error>> {
+    let results: Vec<(u32, u32, u32, String, String)> = conn.exec(
+        r"SELECT ID, ID_Aluno, ID_Usuario, Data, Conteudo FROM Planilhas WHERE ID_Aluno = :id_aluno",
+        params! {
+            "id_aluno" => id_aluno,
+        },
+    )?;
+
+    let planilhas: Vec<Planilha> = results.into_iter()
+        .map(|(id, id_aluno, id_usuario, data, conteudo)| Planilha { id, id_aluno, id_usuario, data, conteudo })
+        .collect();
+    Ok(planilhas)
+}
+
 pub fn update_planilha(conn: &mut PooledConn, id: u32, id_aluno: u32, id_usuario: u32, data: &str, conteudo: &str) -> Result<(), Box<dyn Error>> {
     conn.exec_drop(
         r"UPDATE Planilhas SET ID_Aluno = :id_aluno, ID_Usuario = :id_usuario, Data = :data, Conteudo = :conteudo WHERE ID = :id",

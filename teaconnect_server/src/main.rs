@@ -1,7 +1,7 @@
 use mysql::*;
 use std::error::Error;
 use teaconnect_server::usuarios::{create_usuario, delete_usuario, get_usuario, get_usuario_by_nome, update_usuario};
-use teaconnect_server::connection::{create_connection, get_opts, ConnectionType, Connection};
+use teaconnect_server::connection::{create_connection, ConnectionType, Connection};
 
 fn main() -> Result<(), Box<dyn Error>> {
     // Criar uma conexão com o banco de dados
