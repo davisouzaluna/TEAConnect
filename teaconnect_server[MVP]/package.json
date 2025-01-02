@@ -1,0 +1,12 @@
+{
+  "name": "teaconnect_server[MVP]",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+
+  "dependencies": {
+    "mysql2": "^3.12.0"
+  }
+  
+}
