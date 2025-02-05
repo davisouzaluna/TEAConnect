@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Planilhas (
 -- Tabela MensagensFórum
 CREATE TABLE IF NOT EXISTS MensagensForum (
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    ID_Usuario INT NOT NULL, 
+    ID_Usuario INT NOT NULL,
     Conteudo TEXT NOT NULL,
     Data DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ID_Usuario) REFERENCES Usuarios(ID)
@@ -66,3 +66,19 @@ CREATE TABLE IF NOT EXISTS InformacoesQuantitativas (
     FOREIGN KEY (ID_Usuario) REFERENCES Usuarios(ID),
     FOREIGN KEY (ID_Planilha) REFERENCES Planilhas(ID)
 );
+
+-- Inserindo dados na tabela Usuarios
+INSERT INTO Usuarios (Nome, Email, Tipo) VALUES
+('Alice', 'alice@example.com', 'professor'),
+('Bob', 'bob@example.com', 'pai'),
+('Carlos', 'carlos@example.com', 'profissional');
+
+-- Inserindo dados na tabela Alunos
+INSERT INTO Alunos (Nome, DataNascimento, DiagnosticoTEA) VALUES
+('João', '2010-05-15', 'Nível 1'),
+('Maria', '2012-09-20', 'Nível 2');
+
+-- Inserindo dados na tabela CursosOnline
+INSERT INTO CursosOnline (Nome, Descricao, Link) VALUES
+('Curso TEA para Professores', 'Curso completo sobre TEA para educadores', 'https://example.com/curso1'),
+('Curso TEA para Pais', 'Curso de apoio para pais de crianças com TEA', 'https://example.com/curso2');

@@ -1,0 +1,33 @@
+version: '3.8'
+name: teaconnect_server_mvp
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./app:/var/www/html
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/var/www/html
+
+  mysql:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: TEAConnect
+volumes:
+  mysql_data:
